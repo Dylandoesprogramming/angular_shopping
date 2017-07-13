@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+  <!-- M:model is data
+        V: View is what the user sees
+        C: Controller is what links the model to the view and vice versa
+      anything within ng-app is part of the application you can use multiple to have multiple applications-->
+<html lang = "en" ng-app="shopping-app">
+  <head>
+    <meta charset="utf-8">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+  </head>
+  <body id="body">
+    <!-- Declare view side of controller with ng-controller="name" -->
+    <div class="container" ng-controller="shopCtrl">
+      <h1>Shopping List</h1>
+      <div class="main">
+        <!-- unstyled is bootstrap for remove all the default styling -->
+        <ul class="unstyled">
+            <!-- for in loop of item in object items -->
+            <li ng-repeat="item in items">
+              <!-- input makes a checkbox - for= item-{{item.id}} is angular that says "for each item input assign it an id" item-1 item-2 ect ng-model interactswith input to tell angular to link the value of item.bought with the input (checkbox) so that when we update checkbox it updates item.bought's value if we change item.bought it will also effect checkbox  -->
+                <input type="checkbox"  class="check" id="item-{{item.id}}" ng-model="item.bought" />
+                <!-- {{}} is 2 way data binding it is used to access anything from your $scope in your html -->
+                <label for="item-{{item.id}}" class="{{isBought(item.bought)}}">{{item.text}}<span></span></label>
+            </li>
+        </ul>
+        <!-- ng-submit executes the function listed when the form is "submitted" it also cancels the default action of the input -->
+          <form class="form-horizontal" ng-submit="addItem()">
+            <input type="text" ng-model="itemEntry" class="add_item_input" placeholder="Type and hit Enter to add items." />
+          </form>
+      </div>
+      <!-- Bootstrap button with ng-click attribute that tells the app t fire "clearBought()" on a click. -->
+      <div class="footer" id="footer">
+        <button class="btn btn-large btn-danger" ng-click="clearBought()">Remove Bought</button>
+      </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/scripts.js"></script>
+
+  </body>
+</html>
